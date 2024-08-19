@@ -2,6 +2,7 @@ import 'package:day_task_app/view/widget/div_info_widget.dart';
 import 'package:day_task_app/view/widget/footer_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../../utils/app_route.dart';
 import '../../utils/app_text.dart';
 import '../../utils/image_path.dart';
 import '../widget/agree_terms_widget.dart';
@@ -9,12 +10,15 @@ import '../widget/button_widget.dart';
 import '../widget/label_widget.dart';
 
 class SignupScreen extends StatelessWidget {
+  final GlobalKey<FormState> _formKey=GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
           child: Form(
+            key: _formKey,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -33,7 +37,11 @@ class SignupScreen extends StatelessWidget {
                   const SizedBox(height: 10),
                   ButtonWidget(
                     title: AppText.textLogIn,
-                    onPress: () {},
+                    onPress: () {
+                      if(_formKey.currentState!.validate()){
+                        Navigator.pushNamed(context, AppRoute.loginScreen);
+                      }
+                    },
                   ),
                   const SizedBox(height: 10),
                   const FooterWidget(isSignUpScreen: true)
